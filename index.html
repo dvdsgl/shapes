@@ -1,24 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>ACE in Action</title>
+	<title>Xamarin Learn to Code</title>
 	<style type="text/css" media="screen">
-		#editor { 
-			position: absolute;
-			top: 30px;
-			bottom: 0;
-			left: 0;
-			width: 750px;
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		#controls {
+			height: 50px;
+			background: black;
+			padding: 5px 0 0 20px;
+		}
+		#controls a {
+			color: white;
+			font-size: x-large;
+			text-decoration: none;
+			display: inline-block;
+			padding: 4px 10px;
+			background: #444;	
+		}
+		#controls a:hover {
+			background: #555;	
+		}
+		#editor {
+			width: 600px;
+			height: 800px;
 			font-size: 16px;
+			display: inline-block;
 		}
 		#canvas {
+			border: 1px solid lightgray;
+		}
+		#console {
+			display: none;
 			position: absolute;
-			top: 30px;
+			width: 100%;
 			bottom: 0;
-			left: 750px;
-			width: 750px;
-			padding-left: 40px;
-			font-family: monospace;
+			left: 600px;
+			bottom: 0;
+			font-size: 13px;
+			border-top: 1px solid gray;
+			padding: 10px;
+			font-family: menlo;
+			height: 200px;
+			overflow-y: scroll;
+			background: #EEEEEE;
 		}
 	</style>
 </head>
@@ -28,10 +55,9 @@
 		<a class="run" href="#">Run</a>
 	</div>
 
-	<div id="editor">shape = ellipse(10, 10, 100, 100)</div>
-
-	<div id="canvas">
-	</div>
+	<div id="editor"></div>
+	<canvas id="canvas" width="700px" height="800px"></canvas>
+	<div id="console"></div>
 
 	<script type="text/javascript" src="ace-builds/src-noconflict/ace.js" charset="utf-8"></script>
 	<script>
@@ -41,25 +67,45 @@
 	</script>
 
 	<script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
+	<script type="text/javascript" src="js/ocanvas-2.4.0.min.js"></script>
 	<script type="text/javascript" src="js/coffee-script.js"></script>
-	<script type="text/coffeescript" src="js/shapes.coffee"></script>
 
 	<script type="text/coffeescript">
 		shapelib = null
-		$.get "js/shapes.coffee", (data) -> shapelib = data
+
+		load = -> localStorage["editor"] or= "shape = ellipse(300, 400, 100, 200)"
+		save = -> localStorage["editor"] = editor.getSession().getValue()
+
+		editor.getSession().setValue(code) if code = load()
+		editor.on "change", save
+
+		window.print = (args...) ->
+			console.log args...
+			$("#console").append $ "<div class=line>#{args.join " "}</div>"
+			c = $("#console")[0]
+			c.scrollTop = c.scrollHeight
+
+		run = ->
+			program = [
+				shapelib,
+				"shape = null"
+				editor.getSession().getValue(),
+				"shape"
+			].join("\n")
+
+			if shape = CoffeeScript.eval program
+				canvas = oCanvas.create canvas: "#canvas"
+				shape.render canvas
+
+		$.get "js/shapes.coffee", (data) ->
+			shapelib = data
+			run()
 
 		$ ->
 			$("#controls .run").click (e) ->
 				e.preventDefault()
-
-				program = [
-					shapelib,
-					editor.getSession().getValue(),
-					"shape"
-				].join("\n")
-
-				shape = CoffeeScript.eval program
-				$("#canvas").text JSON.stringify shape
+				save()
+				run()
 	</script>
 </body>
 </html>
