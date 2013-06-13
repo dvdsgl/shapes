@@ -17,7 +17,7 @@ class Ellipse extends Shape
 			radius_y: @height
 			fill: @fill
 			stroke: "#{@line}px #{@stroke}"
-		}).add()
+		}).add(false)
 
 class Rectangle extends Shape
 	constructor: (x, y, @width, @height) ->
@@ -31,14 +31,13 @@ class Rectangle extends Shape
 			height: @height
 			fill: @fill
 			stroke: "#{@line}px #{@stroke}"
-		}).add()
+		}).add(false)
 
 class Combined extends Shape
 	constructor: (@shapes...) ->
 
 	render: (canvas) ->
-		@shapes.forEach (shape) ->
-			setTimeout => shape.render canvas
+		shape.render canvas for shape in @shapes
 
 ellipse = (x, y, width, height) -> new Ellipse(x, y, width, height)
 rectangle = (x, y, width, height) -> new Rectangle(x, y, width, height)

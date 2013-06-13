@@ -96,6 +96,7 @@
 			if shape = CoffeeScript.eval program
 				canvas = oCanvas.create canvas: "#canvas"
 				shape.render canvas
+				canvas.redraw()
 
 		keyup = (e) ->
 			if e.ctrlKey and e.keyCode is 82
