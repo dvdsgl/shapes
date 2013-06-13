@@ -27,8 +27,8 @@ class Rectangle extends Shape
 		canvas.display.rectangle({
 			x: @x
 			y: @y
-			width: @width
-			height: @height
+			width: @width / 2
+			height: @height / 2
 			fill: @fill
 			stroke: "#{@line}px #{@stroke}"
 		}).add(false)
