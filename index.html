@@ -18,10 +18,16 @@
 			text-decoration: none;
 			display: inline-block;
 			padding: 4px 10px;
-			background: #444;	
+			background: #444;
+			margin-right: 10px;
 		}
 		#controls a:hover {
 			background: #555;	
+		}
+		#controls .errors {
+			color: white;
+			font-family: menlo;
+			font-size: small;
 		}
 		#editor {
 			width: 600px;
@@ -53,6 +59,7 @@
 
 	<div id="controls">
 		<a class="run" href="#">Run</a>
+		<span class="errors"></span>
 	</div>
 
 	<div id="editor"></div>
@@ -93,7 +100,15 @@
 				"shape"
 			].join("\n")
 
-			if shape = CoffeeScript.eval program
+			$("#controls .errors").empty()
+			
+			try
+				shape = CoffeeScript.eval program
+			catch error
+				$("#controls .errors").text error
+				shape = null
+
+			if shape?
 				canvas = oCanvas.create canvas: "#canvas"
 				shape.render canvas
 				canvas.redraw()
