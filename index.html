@@ -97,6 +97,12 @@
 				canvas = oCanvas.create canvas: "#canvas"
 				shape.render canvas
 
+		keyup = (e) ->
+			if e.ctrlKey and e.keyCode is 82
+				editor.focus()
+				save()
+				run()
+
 		$.get "js/shapes.coffee", (data) ->
 			shapelib = data
 			run()
@@ -107,6 +113,8 @@
 				editor.focus()
 				save()
 				run()
+
+			document.addEventListener "keyup", keyup, false
 	</script>
 </body>
 </html>
