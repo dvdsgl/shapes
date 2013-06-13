@@ -37,7 +37,8 @@ class Combined extends Shape
 	constructor: (@shapes...) ->
 
 	render: (canvas) ->
-		shape.render(canvas) for shape in @shapes
+		@shapes.forEach (shape) ->
+			setTimeout => shape.render canvas
 
 ellipse = (x, y, width, height) -> new Ellipse(x, y, width, height)
 rectangle = (x, y, width, height) -> new Rectangle(x, y, width, height)
