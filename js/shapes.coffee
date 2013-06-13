@@ -1,49 +1,33 @@
-class Shape
-	color: "lightgray"
-	lineColor: "clear"
-	lineWidth: 1
+ellipse = (x, y, radius_x, radius_y) ->
+	canvas.display.ellipse {
+		x, y, radius_x, radius_y,
+		fill: "lightgray"
+	}
 
-	constructor: (@x, @y) ->
+rectangle = (x, y, width, height) ->
+	canvas.display.rectangle {
+		x, y, width, height
+	}
 
-class Ellipse extends Shape
-	constructor: (x, y, @width, @height) ->
-		super x, y
+text = (x, y, text) ->
+	canvas.display.text {
+		x, y, text,
+		fill: "#333333"
+	}
 
-	render: (canvas) ->
-		canvas.display.ellipse({
-			x: @x
-			y: @y
-			radius_x: @width
-			radius_y: @height
-			fill: @color
-			stroke: "#{@lineWidth}px #{@lineColor}"
-		}).add(false)
+line = (x, y, x2, y2) ->
+	canvas.display.line {
+		start: { x: x, y: y },
+		end: { x: x2, y: y2 },
+		stroke: "1px black",
+		cap: "round"
+	}
 
-class Rectangle extends Shape
-	constructor: (x, y, @width, @height) ->
-		super x, y
-
-	render: (canvas) ->
-		canvas.display.rectangle({
-			x: @x
-			y: @y
-			width: @width / 2
-			height: @height / 2
-			fill: @color
-			stroke: "#{@lineWidth}px #{@lineColor}"
-		}).add(false)
-
-class Combined extends Shape
-	constructor: (@shapes...) ->
-
-	render: (canvas) ->
-		shape.render canvas for shape in @shapes
-
-ellipse = (x, y, width, height) -> new Ellipse(x, y, width, height)
-rectangle = (x, y, width, height) -> new Rectangle(x, y, width, height)
-combine = (shapes...) -> new Combined(shapes...)
-
-# Colors
+polygon = (x, y, sides, radius, rotation = 0) ->
+	canvas.display.polygon {
+		x, y, sides, radius, rotation
+		fill: "lightgray"
+	}
 
 grayscale = (f) ->
 	r = Math.round(f * 255)

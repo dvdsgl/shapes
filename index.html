@@ -80,38 +80,30 @@
 	<script type="text/coffeescript">
 		shapelib = null
 
-		load = -> localStorage["editor"] or= "shape = ellipse(300, 400, 100, 200)"
+		defaultCode = """shape = ellipse(300, 400, 100, 200)
+shape.add()
+		"""
+
+		load = -> localStorage["editor"] or= defaultCode
 		save = -> localStorage["editor"] = editor.getSession().getValue()
 
 		editor.getSession().setValue(code) if code = load()
 		editor.on "change", save
 
-		window.print = (args...) ->
-			console.log args...
-			$("#console").append $ "<div class=line>#{args.join " "}</div>"
-			c = $("#console")[0]
-			c.scrollTop = c.scrollHeight
-
 		run = ->
 			program = [
+				"canvas = window.canvas",
 				shapelib,
-				"shape = null"
 				editor.getSession().getValue(),
-				"shape"
 			].join("\n")
 
 			$("#controls .errors").empty()
-			
+			canvas.reset()
 			try
-				shape = CoffeeScript.eval program
+				CoffeeScript.eval program
+				canvas.redraw()
 			catch error
 				$("#controls .errors").text error
-				shape = null
-
-			if shape?
-				canvas = oCanvas.create canvas: "#canvas"
-				shape.render canvas
-				canvas.redraw()
 
 		keyup = (e) ->
 			if e.ctrlKey and e.keyCode is 82
@@ -120,6 +112,8 @@
 				run()
 
 		$ ->
+			window.canvas = oCanvas.create canvas: "#canvas"
+
 			$.get "js/shapes.coffee", (data) ->
 				shapelib = data
 				run()
