@@ -92,18 +92,21 @@ shape.add()
 
 		run = ->
 			program = [
-				"canvas = window.canvas",
+				"add = canvas.addChild",
 				shapelib,
 				editor.getSession().getValue(),
+				"{ animate: animate if animate? }"
 			].join("\n")
 
 			$("#controls .errors").empty()
 			canvas.reset()
 			try
-				CoffeeScript.eval program
+				{ animate } = CoffeeScript.eval program
 				canvas.redraw()
 			catch error
 				$("#controls .errors").text error
+
+			canvas.setLoop(animate).start() if animate?
 
 		keyup = (e) ->
 			if e.ctrlKey and e.keyCode is 82
