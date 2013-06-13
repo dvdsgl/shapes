@@ -42,3 +42,17 @@ class Combined extends Shape
 ellipse = (x, y, width, height) -> new Ellipse(x, y, width, height)
 rectangle = (x, y, width, height) -> new Rectangle(x, y, width, height)
 combine = (shapes...) -> new Combined(shapes...)
+
+# Colors
+
+black = "black"
+white = "white"
+gray = "gray"
+
+red = "red"
+green = "green"
+blue = "blue"
+
+grayscale = (f) ->
+	r = Math.round(f * 255)
+	"rgb(#{r}, #{r}, #{r})"
