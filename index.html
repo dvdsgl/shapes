@@ -104,11 +104,11 @@
 				save()
 				run()
 
-		$.get "js/shapes.coffee", (data) ->
-			shapelib = data
-			run()
-
 		$ ->
+			$.get "js/shapes.coffee", (data) ->
+				shapelib = data
+				run()
+
 			$("#controls .run").click (e) ->
 				e.preventDefault()
 				editor.focus()
