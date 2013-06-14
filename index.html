@@ -93,7 +93,7 @@ add(redguy)
 
 		run = ->
 			program = [
-				"add = canvas.addChild",
+				"add = (s) -> canvas.addChild(s, false)",
 				shapelib,
 				editor.getSession().getValue(),
 				"{ animate: animate if animate? }"
