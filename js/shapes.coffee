@@ -29,6 +29,9 @@ polygon = (x, y, sides, radius, rotation = 0) ->
 		fill: "lightgray"
 	}
 
+stroke = (thickness = 1, color = "black") ->
+	"#{thickness}px #{color}"
+
 grayscale = (f) ->
 	r = Math.round(f * 255)
 	"rgb(#{r}, #{r}, #{r})"
