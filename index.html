@@ -80,8 +80,9 @@
 	<script type="text/coffeescript">
 		shapelib = null
 
-		defaultCode = """shape = ellipse(300, 400, 100, 200)
-shape.add()
+		defaultCode = """redguy = ellipse(300, 400, 100, 200)
+redguy.fill = red
+add(redguy)
 		"""
 
 		load = -> localStorage["editor"] or= defaultCode
