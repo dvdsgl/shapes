@@ -6,7 +6,8 @@ ellipse = (x, y, radius_x, radius_y) ->
 
 rectangle = (x, y, width, height) ->
 	canvas.display.rectangle {
-		x, y, width, height
+		x, y, width, height,
+		fill: "lightgray"
 	}
 
 text = (x, y, text) ->
