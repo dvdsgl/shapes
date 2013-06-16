@@ -1,0 +1,74 @@
+@StageWidth: 500px;
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+body, html, .ide {
+	height: 100%;
+}
+
+.ide {
+	width: 100%;
+	display: table;
+	background: black;
+}
+
+#controls {
+	display: table-row;
+	height: 60px;
+
+	a {
+		color: white;
+		font-size: large;
+		text-decoration: none;
+		display: inline-block;
+		text-transform: uppercase;
+		padding: 6px 20px;
+		background: #444;
+		border-radius: 2px;
+		margin: 10px 0 0 10px;
+
+		&:hover {
+			background: #555;	
+		}
+
+		&:active {
+			background: lightseagreen;	
+		}
+	}
+
+	.errors {
+		color: white;
+		font-family: menlo;
+		font-size: small;
+	}
+}
+
+#editor {
+	font-size: 16px;
+	display: table-cell;
+}
+
+#stage {
+	display: table-cell;
+	width: @StageWidth;
+	background: #B8B6A8;
+
+	#phone {
+		margin: 30px auto;
+		height: 808px;
+		width: 391px;
+		background: url("iphone.png");
+		background-size: contain;
+
+		#canvas {
+			background: white;
+			position: relative;
+			top: 121px;
+			left: 36px;
+		}
+	}
+
+}

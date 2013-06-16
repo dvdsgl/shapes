@@ -1,3 +1,8 @@
+screen = canvas = window.canvas
+
+add = (shape) ->
+	canvas.addChild shape, false
+
 ellipse = (x, y, radius_x, radius_y) ->
 	canvas.display.ellipse {
 		x, y, radius_x, radius_y,
@@ -5,16 +10,16 @@ ellipse = (x, y, radius_x, radius_y) ->
 	}
 
 rectangle = (x, y, width, height) ->
-	canvas.display.rectangle {
-		x, y, width, height,
+	attrs = if _.isObject x then x else { x, y, width, height }
+	canvas.display.rectangle _.extend {
 		fill: "lightgray"
-	}
+	}, attrs
 
-text = (x, y, text) ->
-	canvas.display.text {
-		x, y, text,
+text = (x, y, label) ->
+	attrs = if _.isObject x then x else { x, y, text: label }
+	canvas.display.text _.extend {
 		fill: "#333333"
-	}
+	}, attrs
 
 line = (x, y, x2, y2) ->
 	canvas.display.line {
@@ -30,8 +35,14 @@ polygon = (x, y, sides, radius, rotation = 0) ->
 		fill: "lightgray"
 	}
 
+font = (size = 16, family = "helvetica") ->
+	"#{size}pt #{family}"
+
 stroke = (thickness = 1, color = "black") ->
 	"#{thickness}px #{color}"
+
+gradient = (from, to, degrees = 270) ->
+	"linear-gradient(#{degrees}deg, #{from}, #{to})"
 
 grayscale = (f) ->
 	r = Math.round(f * 255)
