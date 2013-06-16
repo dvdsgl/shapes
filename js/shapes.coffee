@@ -3,6 +3,11 @@ screen = canvas = window.canvas
 add = (shape) ->
 	canvas.addChild shape, false
 
+image = (src) ->
+	attrs = if _.isObject src then src else { image: src }
+	canvas.display.image _.extend {
+	}, attrs
+
 ellipse = (x, y, radius_x, radius_y) ->
 	canvas.display.ellipse {
 		x, y, radius_x, radius_y,
