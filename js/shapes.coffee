@@ -44,10 +44,14 @@ stroke = (thickness = 1, color = "black") ->
 gradient = (from, to, degrees = 270) ->
 	"linear-gradient(#{degrees}deg, #{from}, #{to})"
 
+rgba = (r, g, b, a = 1) ->
+	"rgba(#{r},#{g},#{b},#{a})"
+
 grayscale = (f) ->
 	r = Math.round(f * 255)
 	"rgb(#{r}, #{r}, #{r})"
 
+transparent = "transparent"
 aliceblue = "aliceblue"
 antiquewhite = "antiquewhite"
 aqua = "aqua"
