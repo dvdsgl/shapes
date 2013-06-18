@@ -1,7 +1,11 @@
 screen = canvas = window.canvas
 
-add = (shape) ->
-	canvas.addChild shape, false
+add = (parent, child) ->
+	unless child?
+		child = parent
+		parent = canvas
+	parent.addChild child, false
+	child
 
 image = (src) ->
 	attrs = if _.isObject src then src else { image: src }
