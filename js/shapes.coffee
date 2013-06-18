@@ -1,5 +1,7 @@
 screen = canvas = window.canvas
 
+using = (object, block) -> block.call object
+
 add = (parent, child) ->
 	unless child?
 		child = parent
