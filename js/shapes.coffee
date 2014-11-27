@@ -2,6 +2,8 @@ screen = canvas = window.canvas
 
 using = (object, block) -> block.call object
 
+redraw = -> canvas.redraw()
+
 print = (x) -> console.log x
 
 show = (el) ->
