@@ -1,56 +1,35 @@
-@ControlHeight: 50px;
-@StageWidth: 500px;
+@ControlHeight: 40px;
+@StageWidth: 600px;
 
 body {
 	padding: 0;
 	margin: 0;
 }
-.ide {
-}
 
-#controls {
-	height: @ControlHeight - 1;
-	background: linear-gradient(to bottom, #777 0%, #333 100%);
-	border-bottom: 1px solid #222;
-	a {
-		color: white;
-		font-family: "lucida grande";
-		text-decoration: none;
-		display: inline-block;
-		padding: 6px 0;
-		width: 100px;
-		text-align: center;
-		border-radius: 3px;
-		margin: 8px 0 0 10px;
-
-		background: linear-gradient(to bottom, #CCC 0%, #555 100%);
-		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-
-		&:hover {
-			background: linear-gradient(to bottom, #DDD 0%, #555 100%);
-		}
-
-		&:active {
-			background: lightseagreen;	
-		}
+#left {
+	#status {
+		background: fadeout(black, 70%);
+		color: #e74c3c;
+		font-family: arial;
+		padding: 10px 0 0 40px;
+		height: @ControlHeight - 10px;
+		position: absolute;
+		right: @StageWidth;
+		bottom: 0;
+		left: 0;
+		z-index: 100;
+		visibility: none;
 	}
 
-	.errors {
-		color: white;
-		font-family: menlo;
-		font-size: small;
-		margin-left: 10px;
+	#editor {
+		font-size: 14pt;
+		font-family: consolas, menlo;
+		position: absolute;
+		top: 0;
+		right: @StageWidth;
+		bottom: 0;
+		left: 0;
 	}
-}
-
-#editor {
-	font-size: 12pt;
-	font-family: menlo;
-	position: absolute;
-	top: @ControlHeight;
-	right: @StageWidth;
-	bottom: 0;
-	left: 0;
 }
 
 #right {
@@ -59,21 +38,20 @@ body {
 	right: 0;
 	bottom: 0;
 	width: @StageWidth;
-	box-shadow: inset 2px 0 3px rgba(0, 0, 0, 0.6);
-	background: #B8B6A8;
+	background: #7f8c8d;
 
 	#phone {
-		margin: 0 auto 0;
-		height: 808px;
-		width: 391px;
+		margin: 20px auto 0;
+		height: 1022px;
+		width: 500px;
 		background: url("iphone.png");
 		background-size: contain;
 
 		#canvas {
 			background: white;
 			position: relative;
-			top: 121px;
-			left: 36px;
+			top: 123px;
+			left: 32px;
 		}
 	}
 
