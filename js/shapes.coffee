@@ -3,64 +3,64 @@ screen = canvas = window.canvas
 using = (object, block) -> block.call object
 
 add = (parent, child) ->
-	unless child?
-		child = parent
-		parent = canvas
-	parent.addChild child, false
-	child
+  unless child?
+    child = parent
+    parent = canvas
+  parent.addChild child, false
+  child
 
 image = (src) ->
-	attrs = if _.isObject src then src else { image: src }
-	canvas.display.image _.extend {
-	}, attrs
+  attrs = if _.isObject src then src else { image: src }
+  canvas.display.image _.extend {
+  }, attrs
 
 ellipse = (x, y, radius_x, radius_y) ->
-	canvas.display.ellipse {
-		x, y, radius_x, radius_y,
-		fill: "lightgray"
-	}
+  canvas.display.ellipse {
+    x, y, radius_x, radius_y,
+    fill: "lightgray"
+  }
 
 rectangle = (x, y, width, height) ->
-	attrs = if _.isObject x then x else { x, y, width, height }
-	canvas.display.rectangle _.extend {
-		fill: "lightgray"
-	}, attrs
+  attrs = if _.isObject x then x else { x, y, width, height }
+  canvas.display.rectangle _.extend {
+    fill: "lightgray"
+  }, attrs
 
 text = (x, y, label) ->
-	attrs = if _.isObject x then x else { x, y, text: label }
-	canvas.display.text _.extend {
-		fill: "#333333"
-	}, attrs
+  attrs = if _.isObject x then x else { x, y, text: label }
+  canvas.display.text _.extend {
+    fill: "#333333"
+  }, attrs
 
 line = (x, y, x2, y2) ->
-	canvas.display.line {
-		start: { x: x, y: y },
-		end: { x: x2, y: y2 },
-		stroke: "1px black",
-		cap: "round"
-	}
+  canvas.display.line {
+    start: { x: x, y: y },
+    end: { x: x2, y: y2 },
+    stroke: "1px black",
+    cap: "round"
+  }
 
 polygon = (x, y, sides, radius, rotation = 0) ->
-	canvas.display.polygon {
-		x, y, sides, radius, rotation
-		fill: "lightgray"
-	}
+  canvas.display.polygon {
+    x, y, sides, radius, rotation
+    fill: "lightgray"
+  }
 
 font = (size = 16, family = "helvetica") ->
-	"#{size}pt #{family}"
+  "#{size}pt #{family}"
 
 stroke = (thickness = 1, color = "black") ->
-	"#{thickness}px #{color}"
+  "#{thickness}px #{color}"
 
 gradient = (from, to, degrees = 270) ->
-	"linear-gradient(#{degrees}deg, #{from}, #{to})"
+  "linear-gradient(#{degrees}deg, #{from}, #{to})"
 
 rgba = (r, g, b, a = 1) ->
-	"rgba(#{r},#{g},#{b},#{a})"
+  "rgba(#{r},#{g},#{b},#{a})"
 
 grayscale = (f) ->
-	r = Math.round(f * 255)
-	"rgb(#{r}, #{r}, #{r})"
+  r = Math.round(f * 255)
+  "rgb(#{r}, #{r}, #{r})"
 
 transparent = "transparent"
 aliceblue = "aliceblue"
