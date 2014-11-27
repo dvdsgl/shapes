@@ -44,7 +44,7 @@
 
 		defaultCode = """redguy = ellipse(160, 200, 100, 80)
 redguy.fill = red
-add(redguy)"""
+show(redguy)"""
 
 		load = -> localStorage["editor"] or= defaultCode
 		save = -> localStorage["editor"] = editor.getValue()

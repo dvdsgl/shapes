@@ -2,10 +2,12 @@ screen = canvas = window.canvas
 
 using = (object, block) -> block.call object
 
-add = (parent, child) ->
-  unless child?
-    child = parent
-    parent = canvas
+print = (x) -> console.log x
+
+show = (el) ->
+  canvas.addChild el, false
+
+combine = (parent, child) ->
   parent.addChild child, false
   child
 
