@@ -41,16 +41,17 @@
 
 	<script type="text/coffeescript">
 		shapelib = null
+		editorStateSaveKey = "editor"
 
-		defaultCode = """redguy = ellipse(160, 200, 100, 80)
-redguy.fill = red
-show(redguy)"""
+		load = (success) ->
+			if saved = localStorage[editorStateSaveKey]
+				success saved
+			else
+				$.get "default.coffee", success
 
-		load = -> localStorage["editor"] or= defaultCode
-		save = -> localStorage["editor"] = editor.getValue()
-
-		editor.getSession().setValue(code) if code = load()
-		editor.on "change", save
+		save = ->
+			code = editor.getValue()
+			localStorage[editorStateSaveKey] = code
 
 		run = ->
 			program = [
@@ -85,17 +86,14 @@ show(redguy)"""
 		$ ->
 			window.canvas = oCanvas.create canvas: "#canvas"
 
+			# Save and run (after delay) as you type.
+			editor.on "change", autoSaveAndRun
+
 			$.get "js/shapes.coffee", (data) ->
 				shapelib = data
-				run()
-
-			$("#controls .run").click (e) ->
-				e.preventDefault()
-				editor.focus()
-				run()
-
-			# Save and run (after delay) as you type.
-			document.addEventListener "keyup", autoSaveAndRun, false
+				load (code) ->
+					editor.getSession().setValue(code)
+					run()
 	</script>
 </body>
 </html>
