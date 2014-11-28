@@ -2,42 +2,49 @@ screen = canvas = window.canvas
 
 using = (object, block) -> block.call object
 
+# Initializes shapes with common functionality
+initShape = (shape) ->
+
+  shape.centerOn = (other) ->
+    shape.x = (other.width - shape.width) / 2
+    shape.y = (other.height - shape.height) / 2
+    shape
+
+  shape
+
 redraw = -> canvas.redraw()
+
+show = (shape) ->
+  canvas.addChild shape, false
+  shape
 
 print = (x) -> console.log x
 
-show = (el) ->
-  canvas.addChild el, false
-
-combine = (parent, child) ->
-  parent.addChild child, false
-  child
-
 image = (src) ->
   attrs = if _.isObject src then src else { image: src }
-  canvas.display.image _.extend {
+  initShape canvas.display.image _.extend {
   }, attrs
 
 ellipse = (x, y, radius_x, radius_y) ->
-  canvas.display.ellipse {
+  initShape canvas.display.ellipse {
     x, y, radius_x, radius_y,
     fill: "lightgray"
   }
 
 rectangle = (x, y, width, height) ->
   attrs = if _.isObject x then x else { x, y, width, height }
-  canvas.display.rectangle _.extend {
+  initShape canvas.display.rectangle _.extend {
     fill: "lightgray"
   }, attrs
 
 text = (x, y, label) ->
   attrs = if _.isObject x then x else { x, y, text: label }
-  canvas.display.text _.extend {
+  initShape canvas.display.text _.extend {
     fill: "#333333"
   }, attrs
 
 line = (x, y, x2, y2) ->
-  canvas.display.line {
+  initShape canvas.display.line {
     start: { x: x, y: y },
     end: { x: x2, y: y2 },
     stroke: "1px black",
@@ -45,7 +52,7 @@ line = (x, y, x2, y2) ->
   }
 
 polygon = (x, y, sides, radius, rotation = 0) ->
-  canvas.display.polygon {
+  initShape canvas.display.polygon {
     x, y, sides, radius, rotation
     fill: "lightgray"
   }
