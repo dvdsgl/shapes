@@ -29,7 +29,7 @@
 	<script>
 		window.editor = ace.edit("editor");
 		editor.setTheme("ace/theme/monokai");
-		editor.getSession().setMode("ace/mode/coffee");
+		editor.getSession().setMode("ace/mode/javascript");
 		editor.setShowPrintMargin(false);
 		editor.getSession().setUseWrapMode(true);
 		editor.setShowFoldWidgets(false);
@@ -41,13 +41,13 @@
 
 	<script type="text/coffeescript">
 		shapelib = null
-		editorStateSaveKey = "editor"
+		editorStateSaveKey = "editor.js"
 
 		load = (success) ->
 			if saved = localStorage[editorStateSaveKey]
 				success saved
 			else
-				$.get "default.coffee", success
+				$.get "js/default.js", success
 
 		save = ->
 			code = editor.getValue()
@@ -62,7 +62,7 @@
 			$("#status").empty()
 			canvas.reset()
 			try
-				CoffeeScript.eval program
+				eval program
 				canvas.redraw()
 				$("#status").fadeOut(200)
 			catch error
@@ -89,7 +89,7 @@
 			# Save and run (after delay) as you type.
 			editor.on "change", autoSaveAndRun
 
-			$.get "js/shapes.coffee", (data) ->
+			$.get "js/shapelib.js", (data) ->
 				shapelib = data
 				load (code) ->
 					editor.getSession().setValue(code)
